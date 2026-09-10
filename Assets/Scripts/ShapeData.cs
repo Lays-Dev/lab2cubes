@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ShapeData : MonoBehaviour
 {
-    public enum shapeType { cube, sphere }
+    public enum shapeType { Cube, Sphere }
     public shapeType shape;
 
 

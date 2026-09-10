@@ -3,11 +3,11 @@ using UnityEditor;
 using System.Collections.Generic;
 using System.Linq;
 
-[CustomEditor(typeof(ShapeData)), CanEditMultipleObjects]
+//[CustomEditor(typeof(ShapeData)), CanEditMultipleObjects]
 public class ButtonEditor : Editor
 {
     bool disabledCubes = false;
-    bool disabledSpheres = false;
+    //bool disabledSpheres = false;
 
     public override void OnInspectorGUI()
     {
@@ -32,7 +32,7 @@ public class ButtonEditor : Editor
             foreach (ShapeData data in allShapes)
             {
                 // Check if the ShapeData shapeType is a cube or not
-                if (data.shape == ShapeData.shapeType.cube)
+                if (data.shape == ShapeData.shapeType.Cube)
                 {
                     allCubes.Add(data);
                 }
