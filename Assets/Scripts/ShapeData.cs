@@ -4,17 +4,5 @@ public class ShapeData : MonoBehaviour
 {
     public enum shapeType { Cube, Sphere }
     public shapeType shape;
-
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public float size = 1f;
 }

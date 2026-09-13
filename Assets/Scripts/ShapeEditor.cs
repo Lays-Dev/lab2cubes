@@ -10,8 +10,41 @@ public class ShapeEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        base.OnInspectorGUI();
+        serializedObject.Update();
+        SerializedProperty shapeProp = serializedObject.FindProperty("shape");
+        SerializedProperty sizeProp = serializedObject.FindProperty("size");
 
+        EditorGUILayout.PropertyField(shapeProp);
+
+        EditorGUI.BeginChangeCheck();
+        EditorGUILayout.PropertyField(sizeProp);
+        bool sizeChanged = EditorGUI.EndChangeCheck();
+
+        if (shapeProp.enumValueIndex == (int)ShapeData.shapeType.Cube)
+        {
+            if (sizeProp.floatValue > 2f)
+            {
+                EditorGUILayout.HelpBox("The cubes' sizes cannot be bigger than 2!", MessageType.Warning);
+            }
+        }
+        else if (shapeProp.enumValueIndex == (int)ShapeData.shapeType.Sphere)
+        {
+            if (sizeProp.floatValue < 1f)
+            {
+                EditorGUILayout.HelpBox("The spheres' radius cannot be smaller than 1!", MessageType.Warning);
+            }
+        }
+
+        serializedObject.ApplyModifiedProperties();
+
+        if (sizeChanged)
+        {
+            foreach (Object obj in targets)
+            {
+                ShapeData data = (ShapeData)obj;
+                data.transform.localScale = Vector3.one * data.size;
+            }
+        }
 
         if (GUILayout.Button("Select all " + Selection.activeGameObject.GetComponent<ShapeData>().shape.ToString() + "s"))
         {
