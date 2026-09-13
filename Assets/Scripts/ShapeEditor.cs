@@ -16,18 +16,19 @@ public class ShapeEditor : Editor
 
         EditorGUILayout.PropertyField(shapeProp);
 
+        // start of size change
         EditorGUI.BeginChangeCheck();
         EditorGUILayout.PropertyField(sizeProp);
         bool sizeChanged = EditorGUI.EndChangeCheck();
 
-        if (shapeProp.enumValueIndex == (int)ShapeData.shapeType.Cube)
+        if (shapeProp.enumValueIndex == (int)ShapeData.shapeType.Cube) // warning for cube size
         {
             if (sizeProp.floatValue > 2f)
             {
                 EditorGUILayout.HelpBox("The cubes' sizes cannot be bigger than 2!", MessageType.Warning);
             }
         }
-        else if (shapeProp.enumValueIndex == (int)ShapeData.shapeType.Sphere)
+        else if (shapeProp.enumValueIndex == (int)ShapeData.shapeType.Sphere) // warning for sphere size
         {
             if (sizeProp.floatValue < 1f)
             {
@@ -37,6 +38,7 @@ public class ShapeEditor : Editor
 
         serializedObject.ApplyModifiedProperties();
 
+        // if the sizes actually changed apply those changes
         if (sizeChanged)
         {
             foreach (Object obj in targets)
@@ -45,6 +47,7 @@ public class ShapeEditor : Editor
                 data.transform.localScale = Vector3.one * data.size;
             }
         }
+        // end of size change
 
         if (GUILayout.Button("Select all " + Selection.activeGameObject.GetComponent<ShapeData>().shape.ToString() + "s"))
         {
